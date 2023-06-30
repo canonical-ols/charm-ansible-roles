@@ -9,7 +9,7 @@
     group: nagios
     mode: 0644
   when: relations['nrpe-external-master']
-  with_items: checks
+  loop: "{{ checks|flatten(levels=1) }}"
   notify:
     - nrpe config changes
 
@@ -25,6 +25,6 @@
     group: nagios
     mode: 0644
   when: relations['nrpe-external-master']
-  with_items: checks
+  loop: "{{ checks|flatten(levels=1) }}"
   notify:
     - nrpe config changes

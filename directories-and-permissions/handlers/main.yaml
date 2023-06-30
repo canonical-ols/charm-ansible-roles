@@ -1,7 +1,9 @@
 # ansible file module's recursion seems broken
 - name: Ensure group ownership
   shell: chown -R :{{ user }} {{ item }}
-  with_items: readonly_dirs + writable_dirs
+  with_flattened:
+    - readonly_dirs
+    - writable_dirs
 
 - name: Ensure readonly group permissions
   shell: chmod -R g-w {{ item }}

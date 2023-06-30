@@ -16,7 +16,9 @@
     - upgrade-charm
     - config-changed
   command: mkdir -p {{ item }}
-  with_items: readonly_dirs + writable_dirs 
+  with_flattened:
+    - readonly_dirs
+    - writable_dirs
 
 - name: Force permissions
   tags:
